@@ -1,14 +1,14 @@
 import { Lightning } from "@lightningjs/sdk";
 
-export class Box extends Lightning.Component {
+export class Poster extends Lightning.Component {
   static _template() {
     return {
       rect: true,
       w: 300,
-      h: 169,
-      color: 0xff808080,
+      h: 450,
+      color: 0x00808080,
       flexItem: {
-        margin: 15,
+        margin: 10,
         marginBottom: 100,
       },
       Image: {
@@ -16,7 +16,7 @@ export class Box extends Lightning.Component {
       },
       Label: {
         x: 5,
-        y: 175,
+        y: 465,
         text: {
           text: this.bindProp('label'),
           wordWrapWidth: 300,
@@ -24,5 +24,21 @@ export class Box extends Lightning.Component {
         }
       }
     }
+  }
+
+  _focus() {
+    this.patch({
+      Image: {
+        shader: {type: Lightning.shaders.Outline, stroke: 5}
+      },
+    })
+  }
+
+  _unfocus() {
+    this.patch({
+      Image: {
+        shader: null
+      },
+    })
   }
 }

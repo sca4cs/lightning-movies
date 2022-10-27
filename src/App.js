@@ -17,88 +17,21 @@
  * limitations under the License.
  */
 
-import { Lightning, Utils } from '@lightningjs/sdk'
-import { getMovies } from './lib/api'
-import { Box } from './Box'
+import { Router, Utils } from '@lightningjs/sdk'
+import { default as routes } from './lib/routes'
 
-export default class App extends Lightning.Component {
+export default class App extends Router.App {
   static getFonts() {
     return [{ family: 'Regular', url: Utils.asset('fonts/Roboto-Regular.ttf') }]
+  }
+  
+  _setup() {
+    Router.startRouter(routes, this)
   }
 
   static _template() {
     return {
-      Background: {
-        rect: true,
-        w: 1920,
-        h: 1080,
-        color: 0xff000000,
-      },
-      TitleBanner: {
-        rect: true,
-        zIndex: 2,
-        w: 1920,
-        h: 100,
-        color: 0xff000000,
-        Title: {
-          x: 25,
-          y: 10,
-          text: {
-            text: 'Upcoming Movies',
-            fontSize: 64,
-          },
-        }
-      },
-      Container: {
-        y: 100,
-        w: 1920 - 50,
-        rect: true,
-        color: 0x00000000,
-        flex: {
-          direction: 'row',
-          padding: 25,
-          wrap: true,
-          justifyContent: 'space-between',
-          alignItems: 'center'
-        },
-      },
-      
+      ...super._template(),
     }
-  }
-
-  async _init() {
-    this.addDataToScreen(`https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.APP_MOVIES_API_KEY}`)
-  }
-
-  _handleDown() {
-    this.tag('Container').patch({
-      y: this.tag('Container').y - 20
-    })
-  }
-
-  _handleUp() {
-    this.tag('Container').patch({
-      y: this.tag('Container').y + 20
-    })
-  }
-
-  async addDataToScreen(url) {
-    const data = await getMovies(url)
-    console.log('data:', data)
-    this.next = data.page++
-
-    let movies = data.results.map((movie) => {
-      return {
-        type: Box,
-        label: movie.title,
-        movieImage: `https://image.tmdb.org/t/p/w300${movie.backdrop_path}`
-      }
-    })
-
-    // let tempChildren = this.tag('Container').children
-
-    this.tag('Container').patch({
-      children: movies
-    })
   }
 }
