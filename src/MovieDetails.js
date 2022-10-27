@@ -12,7 +12,7 @@ export class MovieDetails extends Lightning.Component {
       },
       Title: {
         mount: 0.5,
-        x: 960,
+        x: 700,
         y: 75,
         text: {
           text: '',
@@ -21,7 +21,7 @@ export class MovieDetails extends Lightning.Component {
       },
       Tagline: {
         mount: 0.5,
-        x: 960,
+        x: 700,
         y: 150,
         text: {
           text: '',
@@ -29,9 +29,18 @@ export class MovieDetails extends Lightning.Component {
       },
       Image: {
         mountX: 0.5,
-        x: 960,
+        x: 700,
         y: 200,
         src: '',
+      },
+      Description: {
+        x: 1000,
+        y: 300,
+        w: 600,
+        text: {
+          text: '',
+          fontSize: 32,
+        }
       },
       NavIndicator: {
         x: 120,
@@ -81,8 +90,14 @@ export class MovieDetails extends Lightning.Component {
       }
     })
 
+    this.tag('Description').patch({
+      text: {
+        text: data.overview,
+      }
+    })
+
     this.tag('Image').patch({
-      src: `https://image.tmdb.org/t/p/w500${data.backdrop_path}`,
+      src: `https://image.tmdb.org/t/p/w500${data.poster_path}`,
     })
   }
 }
