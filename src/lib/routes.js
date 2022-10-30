@@ -1,4 +1,4 @@
-import MoviesHome from '../MoviesHome'
+import { MoviesHome } from '../MoviesHome'
 import { MovieDetails } from '../MovieDetails'
 
 export default {
@@ -11,6 +11,6 @@ export default {
     {
       path: 'movies/:id',
       component: MovieDetails,
-    }
+    },
   ],
 }

@@ -2,7 +2,7 @@ import { Router, Lightning } from '@lightningjs/sdk'
 import { getMovies } from './lib/api'
 import { Poster } from './Poster'
 
-export default class MoviesHome extends Lightning.Component {
+export class MoviesHome extends Lightning.Component {
   static _template() {
     return {
       Background: {
@@ -103,7 +103,6 @@ export default class MoviesHome extends Lightning.Component {
 
   async addDataToScreen(url) {
     const data = await getMovies(url)
-    // console.log('data:', data)
 
     let movies = data.results.map((movie) => {
       return {
