@@ -7,7 +7,11 @@ export class NavIndicator extends Lightning.Component {
         rect: true,
         color: 0xff000000,
         h: 50,
-        flex: {},
+        flex: {
+          padding: 15,
+          alignItems: 'center',
+          justifyContent: 'center',
+        },
         Arrow: {
           w: 30,
           h: 30,
@@ -28,8 +32,10 @@ export class NavIndicator extends Lightning.Component {
   _focus() {
     this.patch({
       Container: {
-        shader: {type: Lightning.shaders.Outline, stroke: 5}
-      }
+        shader: {type: Lightning.shaders.Outline},
+        Arrow: { shader: null },
+        Label: { shader: null },
+      },
     })
   }
 
